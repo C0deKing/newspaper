@@ -1,0 +1,22 @@
+{
+  "name": "newspaper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C0deKing/newspaper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C0deKing/newspaper/issues"
+  },
+  "homepage": "https://github.com/C0deKing/newspaper#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

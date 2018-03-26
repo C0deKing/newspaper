@@ -1,0 +1,1 @@
+console.log("I made it! this is a test JS file from public")
