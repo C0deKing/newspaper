@@ -104,6 +104,6 @@ then
     Web
 fi
 
-rm temp.txt
+#rm temp.txt
 
 #git config --global credential.helper 'cache --timeout=10000000'
