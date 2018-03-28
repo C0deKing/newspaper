@@ -87,6 +87,7 @@ DataBase() {
 Web() {
     echo "starting new process"
     cd web
+    ls
     pm2 kill
     pm2 start --name newspaper index.js
     cd ../
