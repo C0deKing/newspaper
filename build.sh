@@ -1,10 +1,8 @@
+cd "$(dirname "$0")";
 export MYSQL_PWD="F7UL42z4fkrp3YNw"
 host="smp-dev.czlhf4fdxrw2.us-east-1.rds.amazonaws.com"
 user="newspaper"
 now="$(date +'%Y/%h/%d')"
-echo "Executed: $(date)" >> build-output.txt
-echo "--------------------------------------------------------------" >> build-output.txt
-
 DataBase() {
         echo "Updating Database Structure"
         echo "Updating Database Structure" >> build-output.txt
@@ -86,19 +84,26 @@ DataBase() {
 
 }
 
-while test $# -gt 0; do
-        case "$1" in                
-                -db | -mysql) 
-                        DataBase
-                        break
-                        ;;                                   
-        esac
-done
+Web() {
+    echo "starting new process"
+    cd web
+    pm2 kill
+    pm2 start --name newspaper index.js
+    cd ../
+}
 
 
-echo "" >> build-output.txt
-echo "Finished: $(date)" >> build-output.txt
-echo "--------------------------------------------------------------" >> build-output.txt
-echo "--------------------------------------------"
-echo "Build Complete" 
-echo "--------------------------------------------"
+
+echo "............Fetching Latest.........."
+git diff >> temp.txt
+if [ -s temp.txt ] 
+then 
+    echo "Changes detected. Grabing latest and building"
+    git pull
+    DataBase
+    Web
+fi
+
+rm temp.txt
+
+#git config --global credential.helper 'cache --timeout=10000000'

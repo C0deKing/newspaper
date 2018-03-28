@@ -1,0 +1,64 @@
+diff --git a/build-output.txt b/build-output.txt
+index 941cbe9..09e9b45 100644
+--- a/build-output.txt
++++ b/build-output.txt
+@@ -15,3 +15,7 @@ Updating Database Structure
+ 
+ Finished: Mon Mar 26 11:38:31 EDT 2018
+ --------------------------------------------------------------
++Updating Database Structure
++Updating Database Structure
++Updating Database Structure
++Updating Database Structure
+diff --git a/build.sh b/build.sh
+index cab6b0a..eb4cacf 100644
+--- a/build.sh
++++ b/build.sh
+@@ -1,10 +1,8 @@
++cd "$(dirname "$0")";
+ export MYSQL_PWD="F7UL42z4fkrp3YNw"
+ host="smp-dev.czlhf4fdxrw2.us-east-1.rds.amazonaws.com"
+ user="newspaper"
+ now="$(date +'%Y/%h/%d')"
+-echo "Executed: $(date)" >> build-output.txt
+-echo "--------------------------------------------------------------" >> build-output.txt
+-
+ DataBase() {
+         echo "Updating Database Structure"
+         echo "Updating Database Structure" >> build-output.txt
+@@ -86,19 +84,18 @@ DataBase() {
+ 
+ }
+ 
+-while test $# -gt 0; do
+-        case "$1" in                
+-                -db | -mysql) 
+-                        DataBase
+-                        break
+-                        ;;                                   
+-        esac
+-done
+-
+-
+-echo "" >> build-output.txt
+-echo "Finished: $(date)" >> build-output.txt
+-echo "--------------------------------------------------------------" >> build-output.txt
+-echo "--------------------------------------------"
+-echo "Build Complete" 
+-echo "--------------------------------------------"
+\ No newline at end of file
++Web() {
++    echo "starting new process"
++    cd web
++    pm2 kill
++    pm2 start --name newspaper index.js
++}
++
++
++
++echo "............Fetching Latest.........."
++git pull
++DataBase
++Web
++
++#git config --global credential.helper 'cache --timeout=10000000'
