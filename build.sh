@@ -1,5 +1,4 @@
-ls
-#cd newspaper
+cd newspaper
 export MYSQL_PWD="F7UL42z4fkrp3YNw"
 host="smp-dev.czlhf4fdxrw2.us-east-1.rds.amazonaws.com"
 user="newspaper"
