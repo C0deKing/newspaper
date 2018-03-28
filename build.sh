@@ -86,11 +86,8 @@ DataBase() {
 
 Web() {
     echo "starting new process"
-    cd web
-    ls
     pm2 kill
-    pm2 start --name newspaper index.js
-    cd ../
+    pm2 start --name newspaper ./web/index.js
 }
 
 
@@ -98,9 +95,8 @@ Web() {
 echo "............Fetching Latest.........."
 
 git pull
-DataBase
 Web
-
+Database
 
 #rm temp.txt
 
