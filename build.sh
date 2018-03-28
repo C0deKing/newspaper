@@ -95,14 +95,11 @@ Web() {
 
 
 echo "............Fetching Latest.........."
-git diff >> temp.txt
-if [ -s temp.txt ] 
-then 
-    echo "Changes detected. Grabing latest and building"
-    git pull
-    DataBase
-    Web
-fi
+
+git pull
+DataBase
+Web
+
 
 #rm temp.txt
 
