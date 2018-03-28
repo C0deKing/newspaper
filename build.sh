@@ -93,7 +93,6 @@ Web() {
 
 
 echo "............Fetching Latest.........."
-
 git pull
 Web
 DataBase
