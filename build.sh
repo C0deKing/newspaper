@@ -96,7 +96,7 @@ echo "............Fetching Latest.........."
 
 git pull
 Web
-Database
+DataBase
 
 #rm temp.txt
 
