@@ -7,22 +7,21 @@ DataBase() {
         echo "Updating Database Structure"
         echo "Updating Database Structure" >> build-output.txt
         ls
-        cd "$path/mysql"
 
 
         #Remove the old buildfile
-        cd "$path/build"
+        cd "$path/mysql/build"
                 rm build_file.txt
                 touch build_file.txt
 
         # Make sure that the structure is there for scripts and error logging
-        cd "$path/init"
+        cd "$path/mysql/init"
                 mysql --host="$host" --user="$user" --database="newspaper"  <  structure.sql
 
 
 
         # Then Functions
-        cd "$path/functions"
+        cd "$path/mysql/functions"
                 shopt -s nullglob
                 for i in *.sql; do      
                         mysql  --host="$host" --user="$user" --database="newspaper"  < "$i" >> temp.txt 2>&1
@@ -37,7 +36,7 @@ DataBase() {
 
 
         #Then Procs
-        cd "$path/procs"
+        cd "$path/mysql/procs"
                 shopt -s nullglob
                 for i in *.sql; do      
                         mysql --host="$host" --user="$user" --database="newspaper"  < "$i" >> temp.txt 2>&1
@@ -53,7 +52,7 @@ DataBase() {
 
 
         # Run Scripts last because we need to use the procs and functions sometimes 
-        cd "$path/scripts"
+        cd "$path/mysql/scripts"
                 shopt -s nullglob
                 for i in *.sql; do      
                         mysql --host="$host" --user="$user" --database="newspaper"  < "$i" >> temp.txt 2>&1
@@ -68,7 +67,7 @@ DataBase() {
 
 
         #  Check the buildfile and send the results to me if there are any errors
-        cd "$path/build"
+        cd "$path/mysql/build"
                 if [ -s build_file.txt ] 
                 then 
                     echo "Errors in MySQL build"
