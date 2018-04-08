@@ -5,21 +5,14 @@ user="newspaper"
 now="$(date +'%Y/%h/%d')"
 DataBase() {
         echo "Updating Database Structure"
-        echo "Updating Database Structure" >> build-output.txt
-        ls
-
-
-        #Remove the old buildfile
-        cd "$path/mysql/build"
-                rm build_file.txt
-                touch build_file.txt
+        echo "Updating Database Structure" >> build-output.txt       
 
         # Make sure that the structure is there for scripts and error logging
         cd "$path/mysql/init"
                 mysql --host="$host" --user="$user" --database="newspaper"  <  structure.sql
 
 
-
+        cd
         # Then Functions
         cd "$path/mysql/functions"
                 shopt -s nullglob
@@ -34,7 +27,7 @@ DataBase() {
                         rm temp.txt
                 done
 
-
+        cd
         #Then Procs
         cd "$path/mysql/procs"
                 shopt -s nullglob
@@ -50,7 +43,7 @@ DataBase() {
                 done
         
 
-
+        cd
         # Run Scripts last because we need to use the procs and functions sometimes 
         cd "$path/mysql/scripts"
                 shopt -s nullglob
@@ -65,14 +58,14 @@ DataBase() {
                         rm temp.txt
                 done
 
-
+        cd
         #  Check the buildfile and send the results to me if there are any errors
         cd "$path/mysql/build"
                 if [ -s build_file.txt ] 
                 then 
                     echo "Errors in MySQL build"
                 fi
-
+        cd
         echo "Database Update Complete"
         
 
@@ -84,6 +77,7 @@ Web() {
     pm2 kill
     npm install
     pm2 start --name newspaper index.js
+    cd
 }
 
 
