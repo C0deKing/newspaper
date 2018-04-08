@@ -7,7 +7,7 @@ DataBase() {
         echo "Updating Database Structure"
         echo "Updating Database Structure" >> build-output.txt
 
-        cd mysql
+        cd "mysql"
 
 
         #Remove the old buildfile
