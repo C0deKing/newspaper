@@ -1,4 +1,4 @@
-cd newspaper
+path="newspaper"
 export MYSQL_PWD="F7UL42z4fkrp3YNw"
 host="smp-dev.czlhf4fdxrw2.us-east-1.rds.amazonaws.com"
 user="newspaper"
@@ -7,24 +7,22 @@ DataBase() {
         echo "Updating Database Structure"
         echo "Updating Database Structure" >> build-output.txt
         ls
-        cd "mysql"
+        cd "$path/mysql"
 
 
         #Remove the old buildfile
-        cd build
+        cd "$path/build"
                 rm build_file.txt
                 touch build_file.txt
-        cd ../
 
         # Make sure that the structure is there for scripts and error logging
-        cd init 
+        cd "$path/init"
                 mysql --host="$host" --user="$user" --database="newspaper"  <  structure.sql
-        cd ../
 
 
 
         # Then Functions
-        cd functions
+        cd "$path/functions"
                 shopt -s nullglob
                 for i in *.sql; do      
                         mysql  --host="$host" --user="$user" --database="newspaper"  < "$i" >> temp.txt 2>&1
@@ -36,10 +34,10 @@ DataBase() {
                         fi
                         rm temp.txt
                 done
-        cd ../
+
 
         #Then Procs
-        cd procs
+        cd "$path/procs"
                 shopt -s nullglob
                 for i in *.sql; do      
                         mysql --host="$host" --user="$user" --database="newspaper"  < "$i" >> temp.txt 2>&1
@@ -51,11 +49,11 @@ DataBase() {
                         fi
                         rm temp.txt
                 done
-        cd ../
+        
 
 
         # Run Scripts last because we need to use the procs and functions sometimes 
-        cd scripts
+        cd "$path/scripts"
                 shopt -s nullglob
                 for i in *.sql; do      
                         mysql --host="$host" --user="$user" --database="newspaper"  < "$i" >> temp.txt 2>&1
@@ -67,31 +65,26 @@ DataBase() {
                         fi
                         rm temp.txt
                 done
-        cd ../
 
 
         #  Check the buildfile and send the results to me if there are any errors
-        cd build
+        cd "$path/build"
                 if [ -s build_file.txt ] 
                 then 
                     echo "Errors in MySQL build"
                 fi
-        cd ../
 
         echo "Database Update Complete"
         
-        cd ../
 
 }
 
 Web() {
-    ls
     echo "starting new process"
-    cd web
+    cd "$path/web"
     pm2 kill
     npm install
     pm2 start --name newspaper index.js
-    cd ../
 }
 
 
