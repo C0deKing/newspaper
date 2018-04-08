@@ -12,6 +12,7 @@ Web() {
 echo "............Fetching Latest.........."
 cd "$path"
 git pull
+cd ../
 Web
 
 
