@@ -83,6 +83,7 @@ Web() {
 
 
 echo "............Fetching Latest.........."
+cd "$path"
 git pull
 DataBase
 Web
