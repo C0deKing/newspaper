@@ -86,8 +86,11 @@ DataBase() {
 
 Web() {
     echo "starting new process"
+    cd web
     pm2 kill
-    pm2 start --name newspaper ./web/index.js
+    npm install
+    pm2 start --name newspaper index.js
+    cd ../
 }
 
 
