@@ -6,7 +6,7 @@ now="$(date +'%Y/%h/%d')"
 DataBase() {
         echo "Updating Database Structure"
         echo "Updating Database Structure" >> build-output.txt
-
+        ls
         cd "mysql"
 
 
@@ -85,6 +85,7 @@ DataBase() {
 }
 
 Web() {
+    ls
     echo "starting new process"
     cd web
     pm2 kill
