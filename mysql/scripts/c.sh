@@ -10,4 +10,4 @@ while [ -f $filename ]; do
 done
 
 sed "s/script_template/${script}/g" script_template.sql > $filename
-
+subl ${filename}

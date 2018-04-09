@@ -2,28 +2,31 @@ DELIMITER //
 drop PROCEDURE if exists upgrade_script //
 CREATE PROCEDURE upgrade_script()
 main: BEGIN
-  declare _scriptName varchar(255) default "script_template";
+  declare _scriptName varchar(255) default "20180408_1";
 
   if _scriptName = lower("SCRIPT_TEMPLATE") or exists(select * from database_version where scriptName = _scriptName) then 
   	leave main; -- Make sure no script runs more than once
   end if; 
 
-  /*
-  Making a table
-	 CREATE TABLE if not exists table 
-	(
-		id integer NOT NULL AUTO_INCREMENT, 		
-        createdAt datetime,
-        PRIMARY KEY (id)
-	)
- ENGINE=InnoDB;
-
-  */
+  
 
 
   /* Do Script work HERE    */
 
-
+   CREATE TABLE if not exists article 
+	(
+		id integer unsigned NOT NULL AUTO_INCREMENT, 	
+		userId integer unsigned not null default 0,
+		headline text, 
+		body longtext,  
+		isApproved tinyint(1) not null default 0,
+		isDeleted tinyint(1) not null default 0, 
+		publishDate date, 
+		updatedAt datetime, 
+        createdAt datetime,
+        PRIMARY KEY (id)
+	)
+ 	ENGINE=InnoDB;
   /* End Script work */
 
 
