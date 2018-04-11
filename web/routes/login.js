@@ -6,7 +6,7 @@ var express = require('express')
 
 
 
-const validate  = (username, password) =>  db.GetRecords("ap_security_login", [username, password] )
+const validate  = (username, password) =>  db.GetRecords("ap_security_login", [username || "", password || ""] )
 
 const validateUser = async(username, password) => {
 	const [ records, meta] = await validate(username, password)
