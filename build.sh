@@ -4,7 +4,7 @@ Web() {
     echo "starting new process"
     cd "$path/web"
 
-    sed -i "s/{uuid}/($build)/g" views/index.html
+    sed -i "s/{uuid}/$build/g" views/index.html
 
     pm2 kill
     npm install
