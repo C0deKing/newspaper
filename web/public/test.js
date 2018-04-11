@@ -1,1 +1,8 @@
-console.log("I made it! this is a test JS file from public")
+
+
+$(function() {
+	$.post( "/ping", function( data ) {
+	  	console.log(data)
+	});
+})
+
