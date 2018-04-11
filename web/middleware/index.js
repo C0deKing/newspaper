@@ -15,7 +15,7 @@ const loadUserToRequest = async (req, res, next, userId) => {
 
 const injectUser = (req, res, next) => {
 	const token = req.header("token")
-	if(req.path != '/login' && req.path != '/articles') {
+	if(req.path != '/login' && req.path != '/published') {
 		jwt.verify(token, db.GetSecret(), function(err, payload) { 
 			res.setHeader("token", token || "")     
 			if (err) {

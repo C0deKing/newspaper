@@ -10,6 +10,7 @@ require('./middleware')(app)
 app.use('/public', express.static('public'))
 app.use('/login', require('./routes/login'))
 app.use('/articles', require('./routes/articles'))
+app.use('/published', require('./routes/published'))
 app.use('/user', require('./routes/user'))
 app.get('*', (req, res) =>  res.sendFile(__dirname + '/views/index.html'))
 
