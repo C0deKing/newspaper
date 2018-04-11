@@ -13,14 +13,17 @@ const loadUserToRequest = async (req, res, next, userId) => {
 	next()
 }
 
-const injectUser = (req, res, next) => {
-	const token = req.header("token")
+const error =  (err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!    ' + err)
+}
 
+const injectUser = async (req, res, next) => {
+	const token = req.header("token")
 	if(token) {
 		jwt.verify(token, db.GetSecret(), function(err, payload) { 
 			res.setHeader("token", token || "")     
 			if (err) {
-		    	console.log(err)
 		        return res.send({ 	success: false, 
 		        					message: 'Failed to authenticate token.', 
 		        					x_unauthorized: true ,
@@ -31,6 +34,11 @@ const injectUser = (req, res, next) => {
 		    }
 		});
 	}else {
+		req.user = {
+			id: 0, 
+			isEditor: false, 
+			isAdmin: false
+		}
 		next()
 	}
 	
@@ -39,4 +47,5 @@ const injectUser = (req, res, next) => {
 
 module.exports = (app) => {
 	app.use(injectUser)
+	app.use(error)
 }

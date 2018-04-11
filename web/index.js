@@ -12,6 +12,7 @@ app.use('/login', require('./routes/login'))
 app.use('/articles', require('./routes/articles'))
 app.use('/published', require('./routes/published'))
 app.use('/user', require('./routes/user'))
+app.use('/admin', require('./routes/admin'))
 
 app.post('/ping', (req, res) => {
 	res.send("pong")

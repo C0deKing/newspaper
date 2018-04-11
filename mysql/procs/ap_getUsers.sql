@@ -13,12 +13,14 @@ BEGIN
 			id, 
 			username, 
 			firstName, 
-			lastName
+			lastName, 
+			isAdmin,
+			isEditor
 		from st_user
 		limit _pagesize offset _offset;
 
 
-		select found_rows();
+		select found_rows() as 'rows';
 	else 
 		select "Only Admins can view other users" as 'message', 
 				-1 as 'errorCode'; 
