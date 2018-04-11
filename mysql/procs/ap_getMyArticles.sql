@@ -22,7 +22,7 @@ BEGIN
 		limit _pagesize offset _offset;
 
 
-		select found_rows();
+		select found_rows() as 'rows';
 	else 
 		select "Only Editors and Admins can view articles" as 'message', 
 				-1 as 'errorCode'; 
