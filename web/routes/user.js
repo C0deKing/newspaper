@@ -12,8 +12,8 @@ const updateUser = (userId, selectedUserId, firstName, lastName, isApproved, isE
 
 
 const user  = (req, res) => {
-	let { firstName, lastName, username} = req.user
-	res.send({ firstName, lastName, username})
+	let { firstName, lastName, username, isAdmin, isEditor} = req.user
+	res.send({ firstName, lastName, username, isAdmin, isEditor})
 }
 
 
