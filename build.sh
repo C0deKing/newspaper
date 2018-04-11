@@ -1,8 +1,10 @@
 path="newspaper"
-
+uuid=$(uuidgen)
 Web() {
     echo "starting new process"
     cd "$path/web"
+
+    sed -i 's/{uuid}/$uuid/g' views/index.html
 
     pm2 kill
     npm install
@@ -12,6 +14,7 @@ Web() {
 
 echo "............Fetching Latest.........."
 cd "$path"
+git reset --hard HEAD
 git pull
 cd ../
 Web
