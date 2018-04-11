@@ -3,6 +3,7 @@ path="newspaper"
 Web() {
     echo "starting new process"
     cd "$path/web"
+
     pm2 kill
     npm install
     pm2 start --name newspaper index.js
