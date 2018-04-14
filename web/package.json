@@ -19,9 +19,15 @@
   },
   "homepage": "https://github.com/C0deKing/newspaper#readme",
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
   }
 }
