@@ -20,12 +20,10 @@ class Login extends React.Component {
 
 				      <div className="form-label-group">
 				        <input type="email" id="inputEmail" className="form-control" placeholder="Email address" />
-				        <label >Email address</label>
 				      </div>
 
 				      <div className="form-label-group">
 				        <input type="password" id="inputPassword" className="form-control" placeholder="Password"  />
-				        <label >Password</label>
 				      </div>
 
 				     
