@@ -15,11 +15,11 @@ class Body extends React.Component {
 	render() {
 		return(
 			<div className="row container">
-			<Switch>
-		      <Route exact path='/' component={Published}/>
-		      <Route path='/published' component={Published}/>
-		      <Route path='/login' component={Login}/>
-		    </Switch>
+				<Switch>
+			      <Route exact path='/' component={Published}/>
+			      <Route path='/published' component={Published}/>
+			      <Route path='/login' component={Login}/>
+			    </Switch>
 		    </div>
 	    )
 	}
