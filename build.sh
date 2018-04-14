@@ -5,7 +5,7 @@ Web() {
     cd "$path/web"
 
     sed -i "s/{uuid}/$build/g" views/index.html
-
+    webpack -d
     pm2 kill
     npm install
     pm2 start --name newspaper index.js
