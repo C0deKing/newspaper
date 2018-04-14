@@ -2,7 +2,7 @@ import React from 'react';
 import Pager from 'react-ultimate-pagination-bootstrap-4'
 import post from  '../helpers/post'
 const Loading = () => (
-	<strong>Body</strong>
+	<strong>Loading.....</strong>
 )
 
 const article = (record) => (
