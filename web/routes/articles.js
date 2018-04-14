@@ -31,7 +31,7 @@ const myArticles  = async (req, res) => {
 
 const article = async(req, res) => {
 	if(req.user.isEditor || req.user.isAdmin){
-		let [ [result], meta] = await updateArticle(req.user.id, req.params.id, req.body.healine, req.body.body)
+		let [ [result], meta] = await updateArticle(req.user.id, req.params.id, req.body.headline, req.body.body)
 		res.send(result)
 	}else {
 		res.send({error: "Only Administrators and Editors can update/create articles"})

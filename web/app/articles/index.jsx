@@ -38,6 +38,12 @@ const getArticles = async (page, pageSize, self) => {
 	}
 }
 
+const updateArticle = async(record, self) => {
+	const {id, headline, body} = record
+	let response = await post(`articles/update/${id || 0}`, {headline, body} )
+	self.props.save()
+}
+
 class Body extends React.Component {
 	constructor(props){
 		super(props)
@@ -52,6 +58,7 @@ class Body extends React.Component {
 	      	add: false
 	    }
 	    this.cancelEdit = this.cancelEdit.bind(this)
+	    this.save = this.save.bind(this)
 	}
 	componentDidMount() {
 		getArticles(1,this.state.pageSize, this)
@@ -75,12 +82,20 @@ class Body extends React.Component {
 			add: false
 		})
 	}
+	save() {
+		this.setState({
+			record: {}, 
+			add: false,
+			loading: true
+		})
+		getArticles(this.state.page, this.state.pageSize, this)
+	}
 	render() {
 		if(this.state.loading){
 			return <Loading />
 		}else if(this.state.record.id || this.state.add){
 			return(
-				<Article record={this.state.record} add={this.state.add} cancel={this.cancelEdit} />
+				<Article save={this.save} record={this.state.record} add={this.state.add} cancel={this.cancelEdit} />
 			)
 		}else{
 			return (
@@ -90,7 +105,7 @@ class Body extends React.Component {
 						<div className="float-left">
 							<Pager 
 					           currentPage={this.state.page} 
-					           totalPages={parseInt((this.state.rows/this.state.pageSize)) || 1} 
+					           totalPages={Math.ceil((this.state.rows/this.state.pageSize)) || 1} 
 					           onChange={this.handlePageChange.bind(this)}
 					         />
 						</div>
@@ -119,7 +134,7 @@ class Body extends React.Component {
 
 					 <Pager 
 			           currentPage={this.state.page} 
-			           totalPages={parseInt((this.state.rows/this.state.pageSize)) || 1} 
+			           totalPages={Math.ceil((this.state.rows/this.state.pageSize)) || 1} 
 			           onChange={this.handlePageChange.bind(this)}
 			         />
 				</div>) 
@@ -135,6 +150,7 @@ class Article extends React.Component {
 		this.state = {
 			headline: props.record.headline || "", 
 			body: props.record.body ||  "", 
+			id: props.record.id || 0,
 			add: props.add
 		}
 		this.bodyChange = this.bodyChange.bind(this)
@@ -148,6 +164,9 @@ class Article extends React.Component {
 		this.setState({
 			headline: e.target.value
 		})
+	}
+	save() {
+		updateArticle(this.state, this)
 	}
 	render() {
 		return(
@@ -168,7 +187,7 @@ class Article extends React.Component {
 							<button type="button" className="btn btn-default" onClick={this.props.cancel}>Cancel</button>
 						</div>
 						<div className="float-right">
-							<button type="button" className="btn btn-success">Save</button>
+							<button type="button" className="btn btn-success" onClick={this.save.bind(this)}>Save</button>
 						</div>
 					</div>
 					

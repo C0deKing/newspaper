@@ -61,7 +61,7 @@ class Body extends React.Component {
 					<h1>Articles</h1>
 					<Pager 
 			           currentPage={this.state.page} 
-			           totalPages={parseInt((this.state.rows/this.state.pageSize)) || 1} 
+			           totalPages={Math.ceil((this.state.rows/this.state.pageSize)) || 1} 
 			           onChange={this.handlePageChange.bind(this)}
 			         />
 
@@ -69,7 +69,7 @@ class Body extends React.Component {
 
 					 <Pager 
 			           currentPage={this.state.page} 
-			           totalPages={parseInt((this.state.rows/this.state.pageSize)) || 1} 
+			           totalPages={Math.ceil((this.state.rows/this.state.pageSize)) || 1} 
 			           onChange={this.handlePageChange.bind(this)}
 			         />
 				</div>) 
