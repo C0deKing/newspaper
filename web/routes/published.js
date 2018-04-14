@@ -11,7 +11,6 @@ const getArticles  = (pageNumber, pageSize ) =>  db.GetRecords("ap_getPublishedA
 
 
 const articles = async(req, res) => {
-	console.log(req.body)
 	let [ results, [{rows}]] = await getArticles(req.body.pageNumber, req.body.pageSize)
 	res.send({results, rows })
 }
