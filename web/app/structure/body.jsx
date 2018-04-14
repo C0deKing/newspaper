@@ -19,14 +19,13 @@ const article = (record) => (
 const getArticles = (page, pageSize, self) => {
 	post("published", {pageNumber: page, pageSize: pageSize}, (data) => {
 		if(data.rows){
-		self.setState({
-			records: data.results, 
-			rows: data.rows, 
-			loading: false, 
-			page: page,
-			pageSize: pageSize
-		})
-		console.log(self.state)
+			self.setState({
+				records: data.results, 
+				rows: data.rows, 
+				loading: false, 
+				page: page,
+				pageSize: pageSize
+			})
 		}else{
 			self.setState({
 				error: true
