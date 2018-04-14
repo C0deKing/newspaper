@@ -1,4 +1,4 @@
-export default async (path, body) => {
+export default async (path, body, self) => {
 	return new Promise( (resolve, reject) => {
 		$.ajax({
 		    url: `/${path}`,
@@ -8,10 +8,19 @@ export default async (path, body) => {
 		    contentType:"application/json; charset=utf-8",
 		    dataType:"json",
 		    success: function(data){
-		    	resolve(data)
+		    	if(data.error && self){
+		    		self.props.history.push('published')
+		    	}else{
+		    		resolve(data)
+		    	}
+
 		    },
 		    error: function (responseData, textStatus, errorThrown) {
 		        reject({data: responseData, error: errorThrown});
+		    },
+		     headers: {
+		       	'token': window.localStorage.getItem('token') || "",
+		        'Content-Type':'application/json'
 		    }
 		 })
 	} )
