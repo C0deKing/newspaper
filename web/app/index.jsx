@@ -1,10 +1,24 @@
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom'
+import Body from './structure/body.jsx'
+import Header from './structure/header.jsx'
 
-class App extends React.Component {
+const App = () => (
+	<div>
+		<Header />
+		<Body />
+	</div>
+)
+
+
+class Page extends React.Component {
   render () {
-    return <p> Hello Newspaper!</p>;
+    return (
+    	<BrowserRouter>
+    		<App />
+  		</BrowserRouter>);
   }
 }
 
-render(<App/>, document.getElementById('app'));
+render(<Page/>, document.getElementById('app'));

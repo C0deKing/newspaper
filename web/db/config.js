@@ -12,5 +12,6 @@ module.exports = {
     return( useDefaultTypeCasting() );
 
   },
-  jwt_secret: "keyboardcat" 
+  jwt_secret: "keyboardcat",
+  acquireTimeout: 1000000000
 };

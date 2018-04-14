@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "production": "PORT=80 node index.js"
+    "production": "PORT=80 node index.js",
+    "dev": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,9 @@
     "jsonwebtoken": "^8.2.1",
     "mysql": "^2.15.0",
     "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react-dom": "^16.3.1",
+    "react-router-dom": "^4.2.2",
+    "react-ultimate-pagination-bootstrap-4": "^1.1.0",
+    "redux": "^3.7.2"
   }
 }
