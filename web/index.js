@@ -4,8 +4,8 @@ const app = express()
 const bodyParser = require('body-parser');
 
 
+//require('./middleware')(app)
 app.use(bodyParser.json());
-require('./middleware')(app)
 
 app.use('/public', express.static('public'))
 app.use('/login', require('./routes/login'))

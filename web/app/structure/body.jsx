@@ -1,6 +1,6 @@
 import React from 'react';
 import Pager from 'react-ultimate-pagination-bootstrap-4'
-
+import post from  '../helpers/post'
 const Loading = () => (
 	<strong>Body</strong>
 )
@@ -17,26 +17,23 @@ const article = (record) => (
 )
 
 const getArticles = (page, pageSize, self) => {
-	$.post('/published', JSON.stringify({
-			pageNumber: page, 
+	post("published", {pageNumber: page, pageSize: pageSize}, (data) => {
+		if(data.rows){
+		self.setState({
+			records: data.results, 
+			rows: data.rows, 
+			loading: false, 
+			page: page,
 			pageSize: pageSize
-		}), function(data) {
-			console.log(data)
-				if(data.rows){
-					self.setState({
-						records: data.results, 
-						rows: data.rows, 
-						loading: false, 
-						page: page,
-						pageSize: pageSize
-					})
-					console.log(self.state)
-				}else{
-					self.setState({
-						error: true
-					})
-				}
-		}, "json")
+		})
+		console.log(self.state)
+		}else{
+			self.setState({
+				error: true
+			})
+		}
+	})
+	
 	
 }
 
@@ -49,15 +46,14 @@ class Body extends React.Component {
 	      	records: [], 
 	      	rows: 0, 
 	      	page: 1, 
-	      	pageSize: 25
+	      	pageSize: 5
 	    }
 	}
 	componentDidMount() {
-		getArticles(1,25, this)
+		getArticles(1,this.state.pageSize, this)
 	}
 	handlePageChange(pageNumber) {
-		console.log(pageNumber)
-		getArticles(pageNumber, 25, this)
+		getArticles(pageNumber, this.state.pageSize, this)
 	}
 	render() {
 		if(this.state.loading){
@@ -68,7 +64,7 @@ class Body extends React.Component {
 					<h1>Articles</h1>
 					<Pager 
 			           currentPage={this.state.page} 
-			           totalPages={2} 
+			           totalPages={parseInt((this.state.rows/this.state.pageSize)) || 1} 
 			           onChange={this.handlePageChange.bind(this)}
 			         />
 
@@ -76,7 +72,7 @@ class Body extends React.Component {
 
 					 <Pager 
 			           currentPage={this.state.page} 
-			           totalPages={2} 
+			           totalPages={parseInt((this.state.rows/this.state.pageSize)) || 1} 
 			           onChange={this.handlePageChange.bind(this)}
 			         />
 				</div>) 
