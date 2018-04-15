@@ -96,6 +96,8 @@ class Body extends React.Component {
 			loading: true,
 			review: false
 		})
+		getArticles(this.state.page, this.state.pageSize, this)
+
 	}
 	addRecord() {
 		this.setState({
