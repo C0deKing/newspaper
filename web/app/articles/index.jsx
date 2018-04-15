@@ -1,7 +1,9 @@
 import React from 'react';
 import Pager from 'react-ultimate-pagination-bootstrap-4'
 import post from  '../helpers/post'
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill'
+import Trumbowyg from 'react-trumbowyg'
+
 const Loading = () => (
 	<strong>Loading.....</strong>
 )
@@ -147,23 +149,30 @@ class Body extends React.Component {
 class Article extends React.Component {
 	constructor(props) {
 		super(props)
+		const { body, headline } = props.record
 		this.state = {
-			headline: props.record.headline || "", 
-			body: props.record.body ||  "", 
+			headline: headline || "", 
+			body: body ||  "", 
 			id: props.record.id || 0,
 			add: props.add
 		}
 		this.bodyChange = this.bodyChange.bind(this)
 	}
-	bodyChange(value) {
-		this.setState({
-			body: value
-		})
+	bodyChange(e) {
+		if(e.target){
+			const html = e.target.innerHTML
+			this.setState({
+				body: html || ""
+			})
+		}		
 	}
 	headlineChange(e){
-		this.setState({
-			headline: e.target.value
-		})
+		if(e.target){
+			this.setState({
+				headline: e.target.value
+			})
+		}
+		
 	}
 	save() {
 		updateArticle(this.state, this)
@@ -179,8 +188,24 @@ class Article extends React.Component {
 					</div>
 					<div className="form-group">
 						<label className="">Body</label>
-						<ReactQuill value={this.state.body}
-                  			onChange={this.bodyChange} />						
+						<Trumbowyg id='react-trumbowyg'
+                        buttons={
+                            [
+                                ['viewHTML'],
+                                ['formatting'],
+                                'btnGrp-semantic',
+                                ['link'],
+                                ['insertImage'],
+                                'btnGrp-justify',
+                                'btnGrp-lists',                                
+                                ['fullscreen']
+                            ]
+                        }
+                        data={this.props.record.body}
+                        placeholder='Type your text!'
+                        onChange={this.bodyChange}
+                        ref="trumbowyg"
+                    />											
 					</div>
 					<div>
 						<div className="float-left">
