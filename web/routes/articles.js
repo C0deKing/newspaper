@@ -41,7 +41,6 @@ const article = async(req, res) => {
 
 
 const pending = async(req, res) => {
-	console.log(req.user)
 	if(req.user.isAdmin){
 		 const [records, info, meta] = await getPendingArticles(req.user.id,  req.body.pageNumber, req.body.pageSize)
 		 if(meta) {
@@ -56,7 +55,6 @@ const pending = async(req, res) => {
 }
 
 const approve = async(req, res) => {
-	console.log(req.user)
 	if(req.user.isAdmin){
 		let [ [result], meta ] = await approveArticle(req.user.id, req.params.id, req.body.isApproved)
 		res.send(result)

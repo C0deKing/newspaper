@@ -9,7 +9,7 @@ const article = (record) => (
 	<div key={record.id}>
 		<div className="jumbotron">
 			<h3>{record.headline}</h3>
-			<p className="lead">{record.body}</p>
+			<p className="lead" dangerouslySetInnerHTML={{__html: record.body}}></p>
 
 		</div>
 		

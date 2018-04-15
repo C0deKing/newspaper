@@ -5,6 +5,8 @@ import Login from '../login/index.jsx'
 import Articles from '../articles/index.jsx'
 import Admin from '../admin/index.jsx'
 import AddUser from '../admin/add.jsx'
+import User from '../user/index.jsx'
+import Review from '../review/index.jsx'
 class Body extends React.Component {
 	constructor(props){
 		super(props)
@@ -25,7 +27,9 @@ class Body extends React.Component {
 				      <Route path='/login' component={Login}/>
 				      <Route path='/articles' component={Articles}/>
 				      <Route exact path='/admin' component={Admin}/>
-				       <Route path='/register' component={AddUser}/>
+				      <Route path='/register' component={AddUser}/>
+				      <Route path='/user' component={User}/>
+				      <Route path='/review' component={Review} />
 				    </Switch>
 				    </div>				
 		    </div>
