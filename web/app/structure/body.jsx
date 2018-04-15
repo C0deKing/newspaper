@@ -84,8 +84,11 @@ class Body extends React.Component {
 			if(self.state.authorized){
 				if(self.state.isAdmin){
 					return(<ul className="navbar-nav mr-auto">
+					     <li className="nav-item">
+					        <Link className="nav-link" to="/published">Published</Link>
+					      </li>
 					      <li className="nav-item">
-					        <Link className="nav-link" to="/published">Articles</Link>
+					        <Link className="nav-link" to="/articles">Articles</Link>
 					      </li>
 					      <li className="nav-item">
 					        <Link className="nav-link" to="/review">Review</Link>
