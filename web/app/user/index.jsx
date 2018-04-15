@@ -59,7 +59,7 @@ class User extends React.Component {
 	render(){
 		return(
 			<div className="container" style={{paddingTop: "30px"}}>
-				<h1>Welcome! Your Information is Below</h1>				
+				<h1>Welcome {this.state.firstName || this.state.username}! Your Information is Below</h1>				
 				<hr/>
 				<div className="form-group">
 					<label>Username: &nbsp; &nbsp; </label>
