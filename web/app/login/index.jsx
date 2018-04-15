@@ -6,7 +6,8 @@ const validate = async (username, password, self) => {
 	console.log(response)
 	if(response.success && response.token){
 		window.localStorage.setItem('token',response.token )
-		self.props.history.push('/articles')
+		//self.props.login()
+		window.location = "/user"		
 	}else{
 		alert(response.message || 'Authentication Error')
 	}

@@ -21,7 +21,6 @@ const UserRow = (props) => (
 
 const getUsers = async (page, pageSize, self) => {
 	let response = await post("admin", {pageNumber: page, pageSize}, self)
-	console.log(response)
 	if (response.rows){
 		self.setState({
 			records: response.results, 
@@ -42,7 +41,6 @@ const getUsers = async (page, pageSize, self) => {
 const updateUser = async(record, self) => {
 	const {id, username, firstName, lastName, isEditor, isAdmin} = record
 	let response = await post(`admin/update/${id}`, {username, firstName, lastName, isEditor, isAdmin})
-	console.log(response)
 	self.props.save()
 }
 

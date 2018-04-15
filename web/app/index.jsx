@@ -6,7 +6,6 @@ import Header from './structure/header.jsx'
 
 const App = () => (
 	<div>
-		<Header />
 		<Body />
 	</div>
 )

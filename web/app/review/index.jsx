@@ -24,7 +24,6 @@ const ArticleRow = (props) => (
 
 const getArticles = async (page, pageSize, self) => {
 	let response = await post("articles/pending", {pageNumber: page, pageSize}, self)
-	console.log(response)
 	if (response.rows){
 		self.setState({
 			records: response.records, 
@@ -206,7 +205,7 @@ class Article extends React.Component {
 				<div>
 					<div className="jumbotron">
 						<h3>{this.state.headline}</h3>
-						<p className="lead" dangerouslySetInnerHTML={{__html: record.body}}></p>
+						<p className="lead" dangerouslySetInnerHTML={{__html: this.state.body}}></p>
 					</div>
 					<div>
 						<div className="float-left">
