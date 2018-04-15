@@ -62,7 +62,7 @@ class User extends React.Component {
 				<h1>Welcome! Your Information is Below</h1>				
 				<hr/>
 				<div className="form-group">
-					<label>Username</label>
+					<label>Username: &nbsp; &nbsp; </label>
 					<strong>{this.state.username}</strong>
 				</div>
 				<div className="form-group">
