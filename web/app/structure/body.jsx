@@ -103,7 +103,7 @@ class Body extends React.Component {
 					        <Link className="nav-link" to="/published">Published</Link>
 					      </li>
 					      <li className="nav-item">
-					        <Link className="nav-link" to="/published">Articles</Link>
+					        <Link className="nav-link" to="/articles">Articles</Link>
 					      </li>
 					      <li className="nav-item">
 						        <Link to="" onClick={this.logout.bind(this)} className="nav-link">Log Out</Link>
