@@ -18,7 +18,7 @@ const article = (record) => (
 
 const getArticles = async (page, pageSize, self) => {
 	let response = await post("published", {pageNumber: page, pageSize})
-	if (response.rows){
+	if (response.rows || response.rows === 0){
 		self.setState({
 			records: response.results, 
 			rows: response.rows, 

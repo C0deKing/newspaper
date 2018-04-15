@@ -21,7 +21,7 @@ const UserRow = (props) => (
 
 const getUsers = async (page, pageSize, self) => {
 	let response = await post("admin", {pageNumber: page, pageSize}, self)
-	if (response.rows){
+	if (response.rows || response.rows === 0){
 		self.setState({
 			records: response.results, 
 			rows: response.rows, 

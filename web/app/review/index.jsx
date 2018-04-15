@@ -24,7 +24,7 @@ const ArticleRow = (props) => (
 
 const getArticles = async (page, pageSize, self) => {
 	let response = await post("articles/pending", {pageNumber: page, pageSize}, self)
-	if (response.rows){
+	if (response.rows || response.rows === 0){
 		self.setState({
 			records: response.records, 
 			rows: response.rows, 
