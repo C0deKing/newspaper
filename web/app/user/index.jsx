@@ -8,6 +8,7 @@ const getUser = async(self) => {
 	self.setState({
 		firstName: firstName, 
 		lastName: lastName, 
+		username: username,
 		dirty: false
 	})
 }
@@ -27,6 +28,7 @@ class User extends React.Component {
 		this.state = {
 			firstName: "",
 			lastName: "", 
+			username: "",
 			dirty: false
 		}
 
@@ -59,6 +61,10 @@ class User extends React.Component {
 			<div className="container" style={{paddingTop: "30px"}}>
 				<h1>Welcome! Your Information is Below</h1>				
 				<hr/>
+				<div className="form-group">
+					<label>Username</label>
+					<strong>{this.state.username}</strong>
+				</div>
 				<div className="form-group">
 					<label>First Name</label>
 					<input type="text" className="form-control" 
