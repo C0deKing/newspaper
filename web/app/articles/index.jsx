@@ -159,12 +159,12 @@ class Article extends React.Component {
 		this.bodyChange = this.bodyChange.bind(this)
 	}
 	bodyChange(e) {
-		if(e.target){
-			const html = e.target.innerHTML
-			this.setState({
-				body: html || ""
-			})
-		}		
+		
+		const html = e.target.innerHTML
+		this.setState({
+			body: html || ""
+		})
+				
 	}
 	headlineChange(e){
 		if(e.target){
