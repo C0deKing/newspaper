@@ -45,7 +45,7 @@ class User extends React.Component {
 		createUser(this.state, this)
 	}
 	cancel(){
-		self.props.history.push('admin')
+		this.props.history.push('admin')
 	}
 	render(){
 		return(
