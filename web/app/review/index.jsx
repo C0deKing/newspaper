@@ -230,8 +230,22 @@ class Article extends React.Component {
 			return(
 				<div>
 					<div className="jumbotron">
-						<h3>{this.state.headline}</h3>
-						<p className="lead" dangerouslySetInnerHTML={{__html: this.state.body}}></p>
+						<div className="row">
+							<h3>{this.state.headline}</h3>
+							<p className="lead" dangerouslySetInnerHTML={{__html: this.state.body}}></p>
+						</div>
+						<div className="row">
+							<div className="col-4">
+								<img src={this.state.addLink1} style={{maxWidth: "100%"}} />
+							</div>
+							<div className="col-4">
+								<img src={this.state.addLink2} style={{maxWidth: "100%"}} />
+							</div>
+							<div className="col-4">
+								<img src={this.state.addLink3} style={{maxWidth: "100%"}} />
+							</div>
+						</div>
+						
 					</div>
 					<div>
 						<div className="float-left">

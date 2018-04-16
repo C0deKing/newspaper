@@ -8,9 +8,21 @@ const Loading = () => (
 const article = (record) => (
 	<div key={record.id}>
 		<div className="jumbotron">
-			<h3>{record.headline}</h3>
-			<p className="lead" dangerouslySetInnerHTML={{__html: record.body}}></p>
-
+			<div className="row">
+				<h3>{record.headline}</h3>
+				<p className="lead" dangerouslySetInnerHTML={{__html: record.body}}></p>
+			</div>
+			<div className="row">
+				<div className="col-4">
+					<img src={record.addLink1} style={{maxWidth: "100%"}} />
+				</div>
+				<div className="col-4">
+					<img src={record.addLink2} style={{maxWidth: "100%"}} />
+				</div>
+				<div className="col-4">
+					<img src={record.addLink3} style={{maxWidth: "100%"}} />
+				</div>
+			</div>
 		</div>
 		
 	</div>
