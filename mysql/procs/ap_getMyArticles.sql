@@ -16,7 +16,10 @@ BEGIN
 			isApproved,
 			publishDate,
 			createdAt,
-			updatedAt
+			updatedAt,
+			addLink1, 
+			addLink2, 
+			addLink3
 		from article
 		where userId = _userId
 		limit _pagesize offset _offset;

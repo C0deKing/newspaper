@@ -9,8 +9,9 @@ var express = require('express')
 const getMyArticles  = (userId, pageNumber, pageSize ) =>  db.GetRecords("ap_getMyArticles", [userId || 0, pageNumber || 1, pageSize || 25] )
 const getPendingArticles = (userId, pageNumber, pageSize ) =>  db.GetRecords("ap_getArticlesToApprove", [userId || 0, pageNumber || 1, pageSize || 25] )
 
-const updateArticle = (userId, articleId, headline, body) => db.GetRecords("ap_updateArticle", 
-																[userId || 0, articleId || 0, headline || "", body || ""])
+const updateArticle = (userId, articleId, headline, body, addLink1, addLink2, addLink3) => db.GetRecords("ap_updateArticle", 
+																[userId || 0, articleId || 0, headline || "", body || "", 
+																 addLink1 || "", addLink2 || "", addLink3 || ""])
 const approveArticle = (userId, articleId, isApproved) => db.GetRecords("ap_approveArticle", [userId || 0, articleId || 0, isApproved || 0])
 
 const myArticles  = async (req, res) => {
@@ -31,7 +32,8 @@ const myArticles  = async (req, res) => {
 
 const article = async(req, res) => {
 	if(req.user.isEditor || req.user.isAdmin){
-		let [ [result], meta] = await updateArticle(req.user.id, req.params.id, req.body.headline, req.body.body)
+		let [ [result], meta] = await updateArticle(req.user.id, req.params.id, req.body.headline, req.body.body, 
+											req.body.addLink1, req.body.addLink2, req.body.addLink3)
 		res.send(result)
 	}else {
 		res.send({error: "Only Administrators and Editors can update/create articles"})
