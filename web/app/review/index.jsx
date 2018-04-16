@@ -44,8 +44,8 @@ const getArticles = async (page, pageSize, self) => {
 }
 
 const updateArticle = async(record, self) => {
-	const {id, headline, body} = record
-	let response = await post(`articles/update/${id || 0}`, {headline, body} )
+	const {id, headline, body, addLink1, addLink2, addLink3} = record
+	let response = await post(`articles/update/${id || 0}`, {headline, body, addLink1, addLink2, addLink3} )
 	self.props.save()
 }
 
@@ -178,12 +178,16 @@ class Body extends React.Component {
 class Article extends React.Component {
 	constructor(props) {
 		super(props)
+		const { addLink1, addLink2, addLink3, body, headline, id } = props.record
 		this.state = {
-			headline: props.record.headline || "", 
-			body: props.record.body ||  "", 
-			id: props.record.id || 0,
+			headline: headline || "", 
+			body: body ||  "", 
+			id: id || 0,
 			add: props.add, 
-			review: props.review
+			review: props.review, 
+			addLink1: addLink1, 
+			addLink2: addLink2, 
+			addLink3: addLink3
 		}
 		this.bodyChange = this.bodyChange.bind(this)
 	}
@@ -198,6 +202,21 @@ class Article extends React.Component {
 	headlineChange(e){
 		this.setState({
 			headline: e.target.value
+		})
+	}
+	handleAddLink1Change(e) {
+		this.setState({
+			addLink1: e.target.value
+		})
+	}
+	handleAddLink2Change(e) {
+		this.setState({
+			addLink2: e.target.value
+		})
+	}
+	handleAddLink3Change(e) {
+		this.setState({
+			addLink3: e.target.value
 		})
 	}
 	approve() {
@@ -254,6 +273,18 @@ class Article extends React.Component {
 		                        onChange={this.bodyChange}
 		                        ref="trumbowyg"
 		                    />						
+						</div>
+						<div className="form-group">
+							<label className="">Add Link 1</label>						
+							<input className="form-control" value={this.state.addLink1} onChange={this.handleAddLink1Change.bind(this)} />						
+						</div>
+						<div className="form-group">
+							<label className="">Add Link 2</label>						
+							<input className="form-control" value={this.state.addLink2} onChange={this.handleAddLink2Change.bind(this)} />						
+						</div>
+						<div className="form-group">
+							<label className="">Add Link 3</label>						
+							<input className="form-control" value={this.state.addLink3} onChange={this.handleAddLink3Change.bind(this)} />						
 						</div>
 						<div>
 							<div className="float-left">
