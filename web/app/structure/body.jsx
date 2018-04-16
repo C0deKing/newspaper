@@ -39,7 +39,7 @@ class Body extends React.Component {
 	}
 	componentDidMount() {
 		if(this.state.authorized){			
-			//this.loadUser()
+			this.loadUser()
 		}
 	}
 
