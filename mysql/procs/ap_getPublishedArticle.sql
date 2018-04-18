@@ -3,6 +3,11 @@ drop PROCEDURE if exists ap_getPublishedArticle //
 CREATE PROCEDURE ap_getPublishedArticle(in _id int)
 BEGIN
 	 
+	update article
+		set views = views + 1
+	where id = _id
+	limit 1;
+
 	select
 		id, 
 		headline, 
