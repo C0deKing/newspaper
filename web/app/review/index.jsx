@@ -3,6 +3,7 @@ import Pager from 'react-ultimate-pagination-bootstrap-4'
 import post from  '../helpers/post'
 import ReactQuill from 'react-quill';
 import Trumbowyg from 'react-trumbowyg'
+import Toggle from 'react-toggle'
 
 const Loading = () => (
 	<strong>Loading.....</strong>
@@ -14,25 +15,27 @@ const ArticleRow = (props) => (
 		<td>{props.record.createdAt}</td>
 		<td>{props.record.updatedAt}</td>
 		<td>{props.record.isApproved ? "Yes" : "No"}</td>
+		<td>{props.record.views}</td>
 		<td>
 			<button type="button" onClick={props.self.editRecord.bind(props.self,props.record)} className="btn btn-warning">Edit</button>
 			&nbsp; &nbsp;
-			<button type="button" onClick={props.self.reviewRecord.bind(props.self,props.record)} className="btn btn-primary">Approve</button>
+			<button type="button" style={{display: props.record.isApproved ? "none": ""}} onClick={props.self.reviewRecord.bind(props.self,props.record)} className="btn btn-primary">Approve</button>
 		</td>		
 	</tr>
 )
 
 
 
-const getArticles = async (page, pageSize, self) => {
-	let response = await post("articles/pending", {pageNumber: page, pageSize}, self)
+const getArticles = async (page, pageSize, all,  self) => {
+	let response = await post("articles/pending", {pageNumber: page, pageSize, all}, self)
 	if (response.rows || response.rows === 0){
 		self.setState({
 			records: response.records, 
 			rows: response.rows, 
 			loading: false, 
 			page: page,
-			pageSize: pageSize
+			pageSize: pageSize, 
+			all: all
 			
 		})
 	}
@@ -44,7 +47,7 @@ const getArticles = async (page, pageSize, self) => {
 }
 
 const updateArticle = async(record, self) => {
-	const {id, headline, body, addLink1, addLink2, addLink3} = record
+	const {id, headline, body, addLink1, addLink2, addLink3} = Object.assign(record)
 	let response = await post(`articles/update/${id || 0}`, {headline, body, addLink1, addLink2, addLink3} )
 	self.props.save()
 }
@@ -67,17 +70,25 @@ class Body extends React.Component {
 	      	pageSize: 10,
 	      	record: {}, 
 	      	add: false,
-	      	review: false
+	      	review: false, 
+	      	all: false
 	    }
 	    this.cancelEdit = this.cancelEdit.bind(this)
 	    this.save = this.save.bind(this)
 	    this.approve = this.approve.bind(this)
 	}
+	handlePendingChange(e){
+		this.setState({			
+			loading: true
+		})
+		getArticles(this.state.page, this.state.pageSize,  e.target.checked, this)
+
+	}
 	componentDidMount() {
-		getArticles(1,this.state.pageSize, this)
+		getArticles(1,this.state.pageSize, this.state.all, this)
 	}
 	handlePageChange(pageNumber) {
-		getArticles(pageNumber, this.state.pageSize, this)
+		getArticles(pageNumber, this.state.pageSize, this.state.all, this)
 	}
 	editRecord(record) {
 		this.setState({
@@ -98,7 +109,7 @@ class Body extends React.Component {
 			loading: true,
 			review: false
 		})
-		getArticles(this.state.page, this.state.pageSize, this)
+		getArticles(this.state.page, this.state.pageSize, this.state.all, this)
 
 	}
 	addRecord() {
@@ -133,7 +144,16 @@ class Body extends React.Component {
 				<div className="container" style={{paddingTop: "30px"}}>
 					<h1>Articles Pending Approval</h1>
 					<div>
-						<div className="float-left">
+						<label>
+							  <Toggle
+							    defaultChecked={this.state.all}
+							    onChange={this.handlePendingChange.bind(this)}
+							    name="al" />
+							  <span>Get ALL Articles</span>
+							</label>
+					</div>
+					<div>
+						<div className="float-left">							
 							<Pager 
 					           currentPage={this.state.page} 
 					           totalPages={Math.ceil((this.state.rows/this.state.pageSize)) || 1} 
@@ -148,10 +168,11 @@ class Body extends React.Component {
 			         <table className="table table-striped table-hover">
 			         	<thead>
 			         		<tr>
-			         			<th>Headline</th>
-			         			<th>Created At</th>
-			         			<th>Updated At</th>
-			         			<th>Is Approved</th>
+			         			<th className="col-2">Headline</th>
+			         			<th className="col-2">Created At</th>
+			         			<th className="col-2">Updated At</th>
+			         			<th className="col-2">Is Approved</th>
+			         			<th className="col-2">Views</th>
 			         			<th>Actions</th>			         			
 			         		</tr>
 			         	</thead>

@@ -1,6 +1,6 @@
 DELIMITER //
 drop PROCEDURE if exists ap_getArticlesToApprove //
-CREATE PROCEDURE ap_getArticlesToApprove(in _userId int, in _pageNumber int, in _pagesize int)
+CREATE PROCEDURE ap_getArticlesToApprove(in _userId int, in _pageNumber int, in _pagesize int, in _all tinyint(1))
 BEGIN
 
 	declare _offset int default 0; 
@@ -18,9 +18,12 @@ BEGIN
 			updatedAt,
 			addLink1, 
 			addLink2,
-			addLink3
+			addLink3,
+			s3Key, 
+			views,
+			sequence
 		from article
-		where not isApproved
+		where _all or not isApproved
 		limit _pagesize offset _offset;
 
 

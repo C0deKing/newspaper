@@ -1,6 +1,7 @@
 import React from 'react';
 import Pager from 'react-ultimate-pagination-bootstrap-4'
 import post from  '../helpers/post'
+import {Link } from 'react-router-dom'
 const Loading = () => (
 	<strong>Loading.....</strong>
 )
@@ -9,20 +10,18 @@ const article = (record) => (
 	<div key={record.id}>
 		<div className="jumbotron">
 			<div className="row">
+				<div className="col-12">
 				<h3>{record.headline}</h3>
-				<p className="lead" dangerouslySetInnerHTML={{__html: record.body}}></p>
+				</div>
+
 			</div>
 			<div className="row">
-				<div className="col-4">
-					<img src={record.addLink1} style={{maxWidth: "100%"}} />
+				<div className="col-12">
+					<p className="lead">
+						<Link to={`/view?${record.id}`} className="btn btn-primary">View Article</Link>
+					</p>
 				</div>
-				<div className="col-4">
-					<img src={record.addLink2} style={{maxWidth: "100%"}} />
-				</div>
-				<div className="col-4">
-					<img src={record.addLink3} style={{maxWidth: "100%"}} />
-				</div>
-			</div>
+			</div>			
 		</div>
 		
 	</div>

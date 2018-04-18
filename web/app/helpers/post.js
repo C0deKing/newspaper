@@ -1,4 +1,5 @@
 export default async (path, body, self) => {
+	console.log(body)
 	return new Promise( (resolve, reject) => {
 		$.ajax({
 		    url: `/${path}`,

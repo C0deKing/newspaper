@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom'
 import Published from '../published/index.jsx'
+import View from '../published/view.jsx'
 import Login from '../login/index.jsx'
 import Articles from '../articles/index.jsx'
 import Admin from '../admin/index.jsx'
@@ -69,6 +70,7 @@ class Body extends React.Component {
 					<div>
 						  <Route exact path='/' component={Published}/>
 					      <Route path='/published' component={Published}/>
+					      <Route path='/view' component={View}/>
 					      <Route path='/login' component={Login}/>
 					      <Route path='/articles' component={Articles}/>
 					      <Route exact path='/admin' component={Admin}/>

@@ -18,7 +18,8 @@ BEGIN
 		updatedAt,
 		addLink1, 
 		addLink2,
-		addLink3
+		addLink3,
+		s3Key
 	from article
 	where isApproved
 	limit _pagesize offset _offset;

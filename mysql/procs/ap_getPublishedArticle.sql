@@ -13,7 +13,8 @@ BEGIN
 		updatedAt,
 		addLink1, 
 		addLink2,
-		addLink3
+		addLink3,
+		s3Key
 	from article
 	where isApproved
 	and id = _id

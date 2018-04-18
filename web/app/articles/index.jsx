@@ -3,7 +3,18 @@ import Pager from 'react-ultimate-pagination-bootstrap-4'
 import post from  '../helpers/post'
 import ReactQuill from 'react-quill'
 import Trumbowyg from 'react-trumbowyg'
+import ReactS3 from 'react-s3';
+import axios from 'axios'
+const uuidv1 = require('uuid/v1');
 
+
+const config = {
+    bucketName: 'matt-newspaper',
+    albumName: 'photos',
+    region: 'us-east-1',
+    accessKeyId: 'AKIAIBZQHBRLZGKMPCAQ',
+    secretAccessKey: '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',
+}
 const Loading = () => (
 	<strong>Loading.....</strong>
 )
@@ -40,9 +51,22 @@ const getArticles = async (page, pageSize, self) => {
 	}
 }
 
+const uploadFile = async (self) => {
+	if(self.uploadInput.files[0]){
+		const key =  uuidv1() + "/"+ self.uploadInput.files[0].name
+		let data = new FormData();		
+  		data.append('file', self.uploadInput.files[0]);
+  		data.append('key', key)
+  		let res = await axios.post('/upload', data);  		
+  		return key
+	}
+	return ""
+}
+
 const updateArticle = async(record, self) => {
-	const {id, headline, body, addLink1, addLink2, addLink3} = record
-	let response = await post(`articles/update/${id || 0}`, {headline, body, addLink1, addLink2, addLink3} )
+	const newKey = await uploadFile(self)
+	const {id, headline, body, addLink1, addLink2, addLink3, s3Key} = record
+	const response = await post(`articles/update/${id || 0}`, {headline, body, addLink1, addLink2, addLink3, s3Key: newKey || s3Key} )
 	self.props.save()
 }
 
@@ -149,7 +173,9 @@ class Body extends React.Component {
 class Article extends React.Component {
 	constructor(props) {
 		super(props)
-		const { body, headline, addLink1, addLink2, addLink3 } = props.record
+		const { body, headline, addLink1, addLink2, addLink3, s3Key } = props.record
+		let parts = ""
+		if(s3Key){ parts  = s3Key.split('/') }
 		this.state = {
 			headline: headline || "", 
 			body: body ||  "", 
@@ -157,7 +183,9 @@ class Article extends React.Component {
 			add: props.add, 
 			addLink1: addLink1, 
 			addLink2: addLink2, 
-			addLink3: addLink3
+			addLink3: addLink3, 
+			s3Key:s3Key, 
+			fileName:  parts.length  ? parts[parts.length - 1] : ""
 		}
 		this.bodyChange = this.bodyChange.bind(this)
 	}
@@ -195,6 +223,9 @@ class Article extends React.Component {
 	save() {
 		updateArticle(this.state, this)
 	}
+	uploadFile(e){
+		uploadFile(this)
+	}
 	render() {
 		return(
 			<div className="container" style={{paddingTop:"30px"}}>
@@ -226,6 +257,15 @@ class Article extends React.Component {
                     />											
 					</div>
 					<div className="form-group">
+						<label>Upload Image or Video</label>
+					    <input className="form-control" ref={(ref) => { this.uploadInput = ref; }} type="file" />
+					</div>
+					<div className="form-group" style={{display: this.state.fileName ? "" : "none"}}>
+						<label>Current File: &nbsp; &nbsp;</label>
+						<strong><a href={`https://s3.amazonaws.com/matt-newspaper/${this.state.s3Key}`}>{this.state.fileName}</a></strong>
+					</div>
+					    
+					<div className="form-group">
 						<label className="">Add Link 1</label>						
 						<input className="form-control" value={this.state.addLink1} onChange={this.handleAddLink1Change.bind(this)} />						
 					</div>
@@ -252,4 +292,10 @@ class Article extends React.Component {
 	}
 }
 
+
+class File extends React.Component {
+
+}
+
 export default Body
+

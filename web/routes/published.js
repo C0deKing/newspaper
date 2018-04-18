@@ -9,7 +9,7 @@ var express = require('express')
 const getArticles  = (pageNumber, pageSize ) =>  db.GetRecords("ap_getPublishedArticles", [pageNumber || 1, pageSize || 25] )
 
 
-const getArticle = (id) => db.GetRecords("ap_getPublishedArticle", id || 0)
+const getArticle = (id) => db.GetRecords("ap_getPublishedArticle", [id || 0])
 
 
 const articles = async(req, res) => {
@@ -18,7 +18,8 @@ const articles = async(req, res) => {
 }
 
 const article = async(req, res) => {
-	let [ record, meta ] = await  getArticle(req.params.id)
+	console.log("getting", req.params)
+	let [ [record], meta ] = await  getArticle(req.params.id)
 	res.send({record})
 }
 
