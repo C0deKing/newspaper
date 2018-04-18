@@ -21,9 +21,11 @@ BEGIN
 			addLink3,
 			s3Key, 
 			views,
-			sequence
+			sequence,
+			featured
 		from article
 		where _all or not isApproved
+		order by featured desc, sequence asc, publishDate desc
 		limit _pagesize offset _offset;
 
 

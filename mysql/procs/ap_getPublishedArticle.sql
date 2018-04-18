@@ -19,10 +19,12 @@ BEGIN
 		addLink1, 
 		addLink2,
 		addLink3,
-		s3Key
+		s3Key,
+		featured
 	from article
 	where isApproved
 	and id = _id
+	order by featured desc, sequence asc, publishDate desc
 	limit 1;	
  	
 END //

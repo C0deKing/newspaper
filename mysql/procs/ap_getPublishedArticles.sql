@@ -19,9 +19,11 @@ BEGIN
 		addLink1, 
 		addLink2,
 		addLink3,
-		s3Key
+		s3Key,
+		featured
 	from article
 	where isApproved
+	order by featured desc, sequence asc, publishDate desc
 	limit _pagesize offset _offset;
 
 

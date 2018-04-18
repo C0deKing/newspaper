@@ -2,16 +2,17 @@ DELIMITER //
 drop PROCEDURE if exists ap_updateArticle //
 CREATE PROCEDURE ap_updateArticle(in _userId int, in _articleId int, in _headline text, 
                     in _body text, in _addLink1 text, in _addLink2 text, in _addLink3 text, 
-                    in _s3Key text, in _sequence int)
+                    in _s3Key text, in _sequence int, in _featured tinyint(1))
 main: BEGIN
   declare _message varchar(255) default ""; 
   declare _errorCode int default 0;
-
 
   if fn_isUserEditor(_userId) then
     if _articleId <= 0 then 
       insert into article(userId, headline, body, createdAt, updatedAt, addLink1, addLink2, addLink3, s3Key, sequence)
       values(_userId, _headline, _body, now(), now(), _addLink1, _addLink2, _addLink3, _s3Key, _sequence); 
+
+      set _articleId := last_insert_id();
 
       set _errorCode := 1;
       set _message := "Article Created";
@@ -30,7 +31,15 @@ main: BEGIN
 
       set _errorCode := 2; 
       set _message := "Article Updated";
+    end if;
+
+    if _featured then 
+      update article
+        set featured = (id = _articleId)
+      where featured or id = _articleId
+      limit 10000000000000;
     end if; 
+
   else
     set _message := "Only editors and admins can edit articles";
     set _errorCode := -1;

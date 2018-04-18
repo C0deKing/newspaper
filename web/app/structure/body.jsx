@@ -7,7 +7,7 @@ import Articles from '../articles/index.jsx'
 import Admin from '../admin/index.jsx'
 import AddUser from '../admin/add.jsx'
 import User from '../user/index.jsx'
-import Review from '../review/index.jsx'
+import Review from '../review/review.jsx'
 import post from '../helpers/post.js'
 
 

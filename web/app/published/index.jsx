@@ -5,13 +5,19 @@ import {Link } from 'react-router-dom'
 const Loading = () => (
 	<strong>Loading.....</strong>
 )
-
+const header = (record) => {
+	if(record.featured){
+		return  <h1><b><i>{record.headline}</i></b></h1>
+	}else{
+		return(<h3>{record.headline}</h3>)
+	}
+}
 const article = (record) => (
 	<div key={record.id}>
 		<div className="jumbotron">
 			<div className="row">
 				<div className="col-12">
-				<h3>{record.headline}</h3>
+					{header(record)}	
 				</div>
 
 			</div>
@@ -19,6 +25,11 @@ const article = (record) => (
 				<div className="col-12">
 					<p className="lead">
 						<Link to={`/view?${record.id}`} className="btn btn-primary">View Article</Link>
+					</p>
+				</div>
+				<div className="col-12">
+					<p className="lead">
+						<i>{record.featured ? "(featured)" : ""}</i>
 					</p>
 				</div>
 			</div>			

@@ -1,20 +1,10 @@
 import React from 'react';
 import Pager from 'react-ultimate-pagination-bootstrap-4'
 import post from  '../helpers/post'
-import ReactQuill from 'react-quill'
 import Trumbowyg from 'react-trumbowyg'
-import ReactS3 from 'react-s3';
 import axios from 'axios'
 const uuidv1 = require('uuid/v1');
 
-
-const config = {
-    bucketName: 'matt-newspaper',
-    albumName: 'photos',
-    region: 'us-east-1',
-    accessKeyId: 'AKIAIBZQHBRLZGKMPCAQ',
-    secretAccessKey: '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',
-}
 const Loading = () => (
 	<strong>Loading.....</strong>
 )
