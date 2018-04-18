@@ -16,12 +16,16 @@ const article = (record) => (
 			</div>
 			<div className="row">
 				<div className="col-12" style={{paddingLeft: "25%", display: record.s3Key ? "" : "none"}}>
-					<object className="center-block" classID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="500" height="305"  title="My video">
-						<param name="movie" value={`http://matt-newspaper.s3.amazonaws.com/${record.s3Key}`} />
-						<param name="quality" value="low" />
-						<param name="autoplay" value="true" />
-						<embed src={`http://matt-newspaper.s3.amazonaws.com/${record.s3Key}`} quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="500" height="305"></embed>
-					</object>
+				  <video id="my-video" className="video-js" controls preload="auto" width="640" height="264"
+					  poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+					    <source src={`https://matt-newspaper.s3.amazonaws.com/${record.s3Key}`} type='video/mp4' />
+					    <source src={`https://matt-newspaper.s3.amazonaws.com/${record.s3Key}`} type='video/webm' />
+					    <p className="vjs-no-js">
+					      To view this video please enable JavaScript, and consider upgrading to a web browser that
+					      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+					    </p>
+					</video>
+					
 				</div>
 				<div className="col-12">
 					<p className="lead" dangerouslySetInnerHTML={{__html: record.body}}></p>
