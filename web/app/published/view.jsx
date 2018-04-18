@@ -15,8 +15,8 @@ const article = (record) => (
 				
 			</div>
 			<div className="row">
-				<div className="col-12" style={{paddingLeft: "25%", display: record.s3Key ? "" : "none"}}>
-				  <video id="my-video" className="video-js" controls preload="auto" width="640" height="264"
+				<div className="col-12" style={{display: record.s3Key ? "" : "none"}}>
+				  <video style={{display: record.s3Key && record.s3Key.includes("mp4") ? "" : "none", width: "100%" }} id="my-video" className="video-js" controls preload="auto" width="640" height="264"
 					  poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
 					    <source src={`https://matt-newspaper.s3.amazonaws.com/${record.s3Key}`} type='video/mp4' />
 					    <source src={`https://matt-newspaper.s3.amazonaws.com/${record.s3Key}`} type='video/webm' />
@@ -25,6 +25,7 @@ const article = (record) => (
 					      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
 					    </p>
 					</video>
+					<img style={{display: !record.s3Key || !record.s3Key.includes("mp4") ? "" : "none", width: "100%" }} src={`https://matt-newspaper.s3.amazonaws.com/${record.s3Key}`} />
 					
 				</div>
 				<div className="col-12">
